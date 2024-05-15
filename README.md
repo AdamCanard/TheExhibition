@@ -45,7 +45,7 @@ List of Backgrounds <br />
 
 <h3>Example script</h3>
 
-Scene Start (this signifies the start of a scene)
+Scene Start (this signifies the start Scene Start)<br />
 
 BG Black (screen starts black)<br />
 
