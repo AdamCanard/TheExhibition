@@ -1,17 +1,27 @@
-<b>RUNNING THE GAME (Build)</b>
+<h3>RUNNING THE GAME (Build)</h3>
 
+<p>
 Download Ren'Py
 https://www.renpy.org/latest.html
+</p>
 
-Run renpy-8.2.1-sdk.7z <br />
-Extract to Desktop (Or another folder you can access easily) <br />
+<p>
+Run renpy-8.2.1-sdk.7z 
+Extract to Desktop (Or another folder you can access easily) 
+</p>
 
-Open extracted folder, Run renpy.exe <br />
-Navigate to the bottom right of the screen and hit preferences <br />
-Change Projects Directory to a new folder on your Desktop <br />
+<p>
+Open extracted folder, Run renpy.exe 
+Navigate to the bottom right of the screen and hit preferences 
+Change Projects Directory to a new folder on your Desktop 
+</p>
 
-Download The Exhibition project as ZIP <br />
-Extract TheExhibition-main to the new Project Directory folder <br />
+<p>
+Download The Exhibition project as ZIP 
+Extract TheExhibition-main to the new Project Directory folder 
+</p>
 
-From the Ren'Py main menu, hit refresh and select "The Exhibition" <br />
-Click Launch Project <br />
+<p>
+From the Ren'Py main menu, hit refresh and select "The Exhibition" 
+Click Launch Project 
+</p>
