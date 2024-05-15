@@ -1,4 +1,4 @@
-<h3>RUNNING THE GAME (Build)<h3>
+<h3>RUNNING THE GAME (Build)</h3>
 
 Download Ren'Py<br />
 https://www.renpy.org/latest.html<br />
