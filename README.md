@@ -16,6 +16,10 @@ Extract TheExhibition-main to the new Project Directory folder <br />
 From the Ren'Py main menu, hit refresh and select "The Exhibition" <br />
 Click Launch Project <br />
 
+<h2>Cloning the Repository for VS Code</h2>
+Create a new folder in your Projects Directory<br />
+Open folder with vs code<br />
+
 <h2>Prefered Script Structure</h2>
 <h5>(This is just a guideline, dont worry about following it perfectly)</h5>
 
@@ -23,10 +27,6 @@ If you would like any special features to your script<br />
 Please just write a description of what you want to happen in between lines of dialogue and I will do my best to replicate it in the game<br />
 
 <h3>List the characters of the scene and the different assets for each character</h3>
-
-<h2>Cloning the Repository for VS Code</h2>
-Create a new folder in your Projects Directory<br />
-Open folder with vs code<br />
 
 List of Characters: <br />
 <ul>
