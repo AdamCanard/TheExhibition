@@ -31,7 +31,7 @@ Clone to WIP folder, Selct as Repository Destination <br />
 Open in vs code whem prompted <br />
 
 In the bottom left click "main" <br />
-Click origin/<Your Name> <br />
+Click origin/(Your Name) <br />
 
 <h2>Prefered Script Structure</h2>
 <h5>(This is just a guideline, dont worry about following it perfectly)</h5>
