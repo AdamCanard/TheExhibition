@@ -3,7 +3,8 @@
 # Declare characters used by this game. The color argument colorizes the
 # name of the character.
 
-define N = Character("Narater")
+define WelcomeGuy = Character("Guy Who welcomes you to the game")
+define GameOverGuy = Character("Guy Who tells you game over")
 
 image bg cheese:
     "cheese one.png"
@@ -31,18 +32,53 @@ label start:
     # directory.
     "PlaceHolder Name" "PlaceHolder Text"
 
-    show eileen happy
+    $ _window_hide()
+
+    show welcomeguy:
+        xalign 0.0
+        linear 1.5 xpos 0.70
+        linear 0.2 xpos 0.10
+    pause 2.0
+    $ _window_show()
 
     # These display lines of dialogue.
 
-    N "Welcome to game"
+    WelcomeGuy "Welcome to game"
 
-    N "play the music"
+    WelcomeGuy "play the music"
     play sound "woof.mp3"
+    extend "Bark"
 
-    show bg cheese
+    menu:
 
-    N "cheese time"
+        "Do you want cheese time?"
+
+        "Yes":
+
+            jump cheese
+
+        "No":
+            jump themenu
+
+
+
+label cheese:
+    scene bg cheese
+
+    WelcomeGuy "cheese time"
     # This ends the game.
-
     return
+
+label themenu:
+    "fade to black"
+    scene black
+    with dissolve
+    
+    "Main Menu Time"
+    scene bg themenu
+
+    show gameoverguy
+    GameOverGuy "Game Over"
+    return
+
+    
