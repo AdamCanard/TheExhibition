@@ -51,7 +51,7 @@ label start:
 
     menu:
 
-        "Do you want cheese time?"
+        "Do you want cheese time? test"
 
         "Yes":
 
