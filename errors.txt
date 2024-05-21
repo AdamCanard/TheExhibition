@@ -1,0 +1,10 @@
+﻿I'm sorry, but errors were detected in your script. Please correct the
+errors listed below, and try again.
+
+
+File "game/script.rpy", line 68: end of line expected.
+    scene bg menu
+             ^
+
+Ren'Py Version: Ren'Py 8.2.1.24030407
+Fri May 17 15:52:42 2024

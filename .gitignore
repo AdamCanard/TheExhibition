@@ -1,0 +1,5 @@
+#ignore saves directory
+game/saves/
+
+#ignore .txt files
+*.txt

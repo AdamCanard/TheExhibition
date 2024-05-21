@@ -17,8 +17,21 @@ From the Ren'Py main menu, hit refresh and select "The Exhibition" <br />
 Click Launch Project <br />
 
 <h2>Cloning the Repository for VS Code</h2>
-Create a new folder in your Projects Directory<br />
+If you dont have VS code or git install, You can follow these links<br />
+Download vs code at https://code.visualstudio.com/Download, Enable both "Open With Code" options<br />
+Download Git at https://git-scm.com/downloads, you can just keep hitting next <br />
+
+Create a new folder in your Projects Directory (Call it WIP)<br />
 Open folder with vs code<br />
+
+In the welcome screen click "Clone Git Repository..."<br />
+At the top of your screen hit "Clone from GitHub" <br />
+Scroll to and click "AdamCanard/TheExhibition" <br />
+Clone to WIP folder, Selct as Repository Destination <br />
+Open in vs code whem prompted <br />
+
+In the bottom left click "main" <br />
+Click origin/(Your Name) <br />
 
 <h2>Prefered Script Structure</h2>
 <h5>(This is just a guideline, dont worry about following it perfectly)</h5>
