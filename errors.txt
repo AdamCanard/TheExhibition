@@ -2,9 +2,9 @@
 errors listed below, and try again.
 
 
-File "game/script.rpy", line 68: end of line expected.
-    scene bg menu
-             ^
+File "game/script.rpy", line 154: 'show' is not a keyword argument or valid child of the screen statement.
+    show hatman
+        ^
 
 Ren'Py Version: Ren'Py 8.2.1.24030407
-Fri May 17 15:52:42 2024
+Mon May 20 20:03:15 2024
