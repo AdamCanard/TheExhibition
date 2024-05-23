@@ -12,98 +12,13 @@ init:
     $ timer_range = 0
     $ timer_jump = 0
     $ time = 0
+    $ blinkTime = 0
+    $ blinkTimeJump = 0
+    $ blinkTimeRange = 0
 
-image bg cheese:
-    "cheese (1).png"
-    pause 0.14
-    "cheese (2).png"
-    pause 0.14
-    "cheese (3).png"
-    pause 0.14
-    "cheese (4).png"
-    pause 0.14
-    "cheese (5).png"
-    pause 0.14
-    "cheese (6).png"
-    pause 0.14
-    "cheese (7).png"
-    pause 0.14
-    "cheese (8).png"
-    pause 0.14
-    "cheese (9).png"
-    pause 0.14
-    "cheese (10).png"
-    pause 0.14
-    "cheese (11).png"
-    pause 0.14
-    "cheese (12).png"
-    pause 0.14
-    "cheese (13).png"
-    pause 0.14
-    "cheese (14).png"
-    pause 0.14
-    "cheese (15).png"
-    pause 0.14
-    "cheese (16).png"
-    pause 0.14
-    "cheese (17).png"
-    pause 0.14
-    "cheese (18).png"
-    pause 0.14
-    "cheese (19).png"
-    pause 0.14
-    "cheese (20).png"
-    pause 0.14
-    "cheese (21).png"
-    pause 0.14
-    "cheese (22).png"
-    pause 0.14
-    "cheese (23).png"
-    pause 0.14
-    "cheese (24).png"
-    pause 0.14
-    "cheese (25).png"
-    pause 0.14
-    "cheese (26).png"
-    pause 0.14
-    "cheese (27).png"
-    pause 0.14
-    "cheese (28).png"
-    pause 0.14
-    "cheese (29).png"
-    pause 0.14
-    "cheese (30).png"
-    pause 0.14
-    "cheese (31).png"
-    pause 0.14
-    "cheese (32).png"
-    pause 0.14
-    "cheese (33).png"
-    pause 0.14
-    "cheese (34).png"
-    pause 0.14
-    "cheese (35).png"
-    pause 0.14
-    "cheese (36).png"
-    pause 0.14
-    "cheese (37).png"
-    pause 0.14
-    "cheese (38).png"
-    pause 0.14
-    "cheese (39).png"
-    pause 0.14
-    repeat 
-
-image cycle guide:
-    "Guide Neutral.png"
-    pause 0.14
-    "Guide Happy.png"
-    pause 0.14
-    "Guide Mad.png"
-    pause 0.14
-    "Guide Sad.png"
-    pause 0.14
-    repeat
+screen countdown:
+    timer 0.01 repeat True action If(time > 0, true=SetVariable('time', time - 0.01), false=[Hide('countdown'), Jump(timer_jump)])
+    bar value time range timer_range xalign 0.5 yalign 0.9 xmaximum 300 at alpha_dissolve
 
 # The game starts here.
 
@@ -152,10 +67,6 @@ label decide:
 
         "End me":
             jump themenu
-
-screen countdown:
-    timer 0.01 repeat True action If(time > 0, true=SetVariable('time', time - 0.01), false=[Hide('countdown'), Jump(timer_jump)])
-    bar value time range timer_range xalign 0.5 yalign 0.9 xmaximum 300 at alpha_dissolve
 
 transform alpha_dissolve:
     alpha 0.0
@@ -260,7 +171,6 @@ transform Gright:
     xalign -2.0
     linear 0.5 xpos -1.3
 
-
 transform sprial:
     anchor (10,0)
     linear 1 yalign 0.0 clockwise circles 1
@@ -274,5 +184,95 @@ transform sprial:
     linear 1 yalign 0.0 clockwise circles 1
     linear 1 rotate 0
 
+image bg cheese:
+    "cheese (1).png"
+    pause 0.14
+    "cheese (2).png"
+    pause 0.14
+    "cheese (3).png"
+    pause 0.14
+    "cheese (4).png"
+    pause 0.14
+    "cheese (5).png"
+    pause 0.14
+    "cheese (6).png"
+    pause 0.14
+    "cheese (7).png"
+    pause 0.14
+    "cheese (8).png"
+    pause 0.14
+    "cheese (9).png"
+    pause 0.14
+    "cheese (10).png"
+    pause 0.14
+    "cheese (11).png"
+    pause 0.14
+    "cheese (12).png"
+    pause 0.14
+    "cheese (13).png"
+    pause 0.14
+    "cheese (14).png"
+    pause 0.14
+    "cheese (15).png"
+    pause 0.14
+    "cheese (16).png"
+    pause 0.14
+    "cheese (17).png"
+    pause 0.14
+    "cheese (18).png"
+    pause 0.14
+    "cheese (19).png"
+    pause 0.14
+    "cheese (20).png"
+    pause 0.14
+    "cheese (21).png"
+    pause 0.14
+    "cheese (22).png"
+    pause 0.14
+    "cheese (23).png"
+    pause 0.14
+    "cheese (24).png"
+    pause 0.14
+    "cheese (25).png"
+    pause 0.14
+    "cheese (26).png"
+    pause 0.14
+    "cheese (27).png"
+    pause 0.14
+    "cheese (28).png"
+    pause 0.14
+    "cheese (29).png"
+    pause 0.14
+    "cheese (30).png"
+    pause 0.14
+    "cheese (31).png"
+    pause 0.14
+    "cheese (32).png"
+    pause 0.14
+    "cheese (33).png"
+    pause 0.14
+    "cheese (34).png"
+    pause 0.14
+    "cheese (35).png"
+    pause 0.14
+    "cheese (36).png"
+    pause 0.14
+    "cheese (37).png"
+    pause 0.14
+    "cheese (38).png"
+    pause 0.14
+    "cheese (39).png"
+    pause 0.14
+    repeat 
 
+image cycle guide:
+    "Guide Neutral.png"
+    pause 0.14
+    "Guide Happy.png"
+    pause 0.14
+    "Guide Mad.png"
+    pause 0.14
+    "Guide Sad.png"
+    pause 0.14
+    repeat
     
