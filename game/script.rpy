@@ -1,9 +1,4 @@
-﻿# The script of the game goes in this file.
-
-# Declare characters used by this game. The color argument colorizes the
-# name of the character.
-
-define WelcomeGuy = Character("Guy Who welcomes you to the game")
+﻿define WelcomeGuy = Character("Guy Who welcomes you to the game")
 define GameOverGuy = Character("Guy Who tells you game over")
 define Guide = Character("Guide")
 define hatman = Character("HatMan")
@@ -13,19 +8,7 @@ screen countdown:
     timer 0.01 repeat True action If(time > 0, true=SetVariable('time', time - 0.01), false=[Hide('countdown'), Jump(timer_jump)])
     bar value time range timer_range xalign 0.5 yalign 0.9 xmaximum 300 at alpha_dissolve
 
-screen blink:
-    timer 5.0 repeat True action Call("blinkLabel")
-
-
-label blinkLabel:
-    $ _window_hide()
-    show black
-    $ renpy.get_return_stack()
-    pause 1.0
-    $ _window_show()
-    return
-
-
+#init for timer vars
 init:
     $ timer_range = 0
     $ timer_jump = 0
@@ -35,19 +18,16 @@ init:
 
 label start:
 
+    #every scene should show blink right under it
     scene bg bus
-
-    show screen blink
-
-    $ time = 5
-    $ timer_range = 5
-    $ timer_jump = 'missedHat' 
+    #for blink to work correctly, every new show must be behing blink
+    show blink
 
     "PlaceHolder Name" "PlaceHolder Text"
 
     $ _window_hide()
 
-    show welcomeguy:
+    show welcomeguy behind blink:
         xalign 0.0
         linear 1.5 xpos 0.70
         linear 0.2 xpos 0.50
@@ -60,6 +40,7 @@ label start:
     WelcomeGuy "Turn on the music!"
     play music "theme.mp3"
     show welcomeguy at sprial
+
     
     $ renpy.pause (10.0, hard=True)
     
@@ -201,7 +182,24 @@ transform sprial:
     linear 1 yalign 0.0 clockwise circles 1
     linear 1 rotate 0
 
-
+image blink:
+    "blink1.png"
+    pause 4.0
+    "blink2.png"
+    pause 0.14
+    "blink3.png"
+    pause 0.14
+    "blink4.png"
+    pause 0.14
+    "blink5.png"
+    pause 0.14
+    "blink4.png"
+    pause 0.14
+    "blink3.png"
+    pause 0.14
+    "blink2.png"
+    pause 0.14
+    repeat
 
 image bg cheese:
     "cheese (1).png"
