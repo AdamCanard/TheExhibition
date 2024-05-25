@@ -3,6 +3,10 @@ define GameOverGuy = Character("Guy Who tells you game over")
 define Guide = Character("Guide")
 define hatman = Character("HatMan")
 
+image guide = "Guide Neutral.png"
+image guide happy = "Guide Happy.png"
+image guide mad = "Guide Mad.png"
+
 #On screen countdown for decision
 screen countdown:
     timer 0.01 repeat True action If(time > 0, true=SetVariable('time', time - 0.01), false=[Hide('countdown'), Jump(timer_jump)])
@@ -14,14 +18,27 @@ init:
     $ timer_jump = 0
     $ time = 0
 
+init python:
+    def question():
+        userinput = renpy.input("Where do you want to go?", length=16)
+        userinput = userinput.strip()
+
+        if userinput == "guide":
+            renpy.call("guide")
+        elif userinput == "hat":
+            renpy.call("hat")
+        else:
+            renpy.jump("wrong")
+        
+
 # The game starts here.
 
 label start:
 
+    jump main
+
     #every scene should show blink right under it
     scene bg bus
-    #for blink to work correctly, every new show must be behing blink
-    show blink
 
     "PlaceHolder Name" "PlaceHolder Text"
 
@@ -37,20 +54,59 @@ label start:
 
     WelcomeGuy "Welcome to game"
 
-    WelcomeGuy "Turn on the music!"
+    WelcomeGuy "Your eyes look a little red. Don't forget to blink while you are here!"
+    #for blink to work correctly, every new show must be behing blink
+    show blink
+
+    WelcomeGuy "I am so happy you were able to make it to the Exhibition today!"
+
+    WelcomeGuy "Unfortunately, the Exhibition closes in 5 minutes :("
+
+    #DISPLAY 5:00 Timer
+
+    WelcomeGuy "But enough with the sappy stuff, Lets get that music going!"
+    
     play music "theme.mp3"
     show welcomeguy at sprial
-
-    
     $ renpy.pause (10.0, hard=True)
     
-    extend "\n\n This i can get down to"
+    WelcomeGuy "Pretty killer toon huh"
 
-    jump decide
+    jump main
 
-label decide:   
-    scene bg bus 
-    show welcomeguy
+label main:   
+    scene bg main
+    show blink 
+    show guide happy behind blink at Gright
+
+    Guide "Hi, i am so happy to see you"
+
+    show guide -happy at Gleft
+    Guide "We have a wonderful Exhibiton for you today"
+
+    Guide "I will be here to whole time to guide you! Thats why they gave me the name"
+
+    Guide "So, \n"
+    show guide happy at Gright
+    extend "Where do you want to go?"
+        
+    $ question()
+
+    label wrong:
+        show guide mad
+        Guide "WRONG"
+        show guide happy
+        $ question()
+
+
+    label right:
+        scene bg main
+        show blink 
+        show guide happy behind blink at Gleft
+        Guide "That was a great time!"
+        Guide "Where to next?"
+        $ question()
+        
 
     menu:
 
@@ -75,7 +131,7 @@ transform alpha_dissolve:
 label missedHat:
     show hatman
     hatman "waste of my time"
-    jump decide
+    jump right
 
 label hat:
 
@@ -107,25 +163,25 @@ label hat:
                     hatman "this is my favourite snack... enjoy..."
 
                     "Receive a handful of worms from HatMan."
-                    jump decide
+                    jump right
 
                 elif (randSnack == 'juice'):
                     hatman "i juiced this myself…"
 
                     "Receive freshly squeezed ‘juice?’."
-                    jump decide
+                    jump right
 
                 elif (randSnack == 'lint'):
                     hatman "i found this in my pocket… good for the Gums…"
 
                     "Receive damp and weird smelling pocket lint."
-                    jump decide
+                    jump right
                     
             "uhhhh, no thanks":
                 hide screen countdown
                 show hatman mad
                 hatman "“hrhhghhhhrhhhhrhhhghghhrhhhhhhghhehhrhghhhrhhghhhhhh”"
-                jump decide
+                jump right
             "...":
                 hide screen countdown
                 hatman "heyheyheyheyhey come onnnn…. "
@@ -143,7 +199,7 @@ label guide:
 
     Guide "I am the guide, I will have dialog soon"
 
-    jump decide
+    jump right
 
 label themenu:
     "fade to black"
@@ -161,12 +217,15 @@ transform creepIn:
     xalign -2.0
     linear 2 xpos -1.3
 
-transform Gleft:
+transform Gright:
     xalign 3.0
+    yalign 0.5 
     linear 0.5 xpos 2.4
 
-transform Gright:
+
+transform Gleft:
     xalign -2.0
+    yalign 0.5 
     linear 0.5 xpos -1.3
 
 transform sprial:
