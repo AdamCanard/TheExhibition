@@ -51,11 +51,15 @@ label start:
 
     menu:
 
-        "Do you want cheese time? test"
+        "Do you want to test a scene?"
 
-        "Yes":
+        "Cheese time":
 
             jump cheese
+
+        "Survey time:":
+
+            jump survey_intro
 
         "No":
             jump themenu
