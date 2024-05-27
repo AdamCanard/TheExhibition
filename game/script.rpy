@@ -2,7 +2,9 @@
 define GameOverGuy = Character("Guy Who tells you game over")
 define Guide = Character("Guide")
 define hatman = Character("HatMan")
+define sm = Character("Survey Man")
 
+image SurveyMan = "SurveyMan.png"
 image guide = "Guide Neutral.png"
 image guide happy = "Guide Happy.png"
 image guide mad = "Guide Mad.png"
@@ -23,13 +25,14 @@ init:
     $ time = 0
     $ loseFlag = False
     $ hatFlag = False
+    $ surveyFlag = False
 
 init python:
     def question():
 
         if loseFlag == True:
             renpy.jump("themenu")
-        elif hatFlag:
+        elif hatFlag and surveyFlag:
             renpy.jump("win")
         
 
@@ -38,13 +41,13 @@ init python:
         if num == 1 and not hatFlag:
             renpy.jump("hat")
 
-        userinput = renpy.input("Where do you want to go? [loseFlag]", length=16)
+        userinput = renpy.input("Where do you want to go?", length=16)
         userinput = userinput.strip()
 
         if userinput == "guide":
             renpy.call("guide")
-        elif userinput == "menu":
-            renpy.jump("themenu")
+        elif userinput == "survey":
+            renpy.jump("survey_intro")
         else:
             renpy.jump("wrong")
         
@@ -66,6 +69,7 @@ init python:
 
 screen convoCountdown:
     timer 0.01 repeat True action If(time > 0, true=SetVariable('time', time - 0.01), false=[Hide('convoCountdown'), Jump(timer_jump)])
+    bar value time range timer_range xalign 0.5 yalign 0.9 xmaximum 300 at alpha_dissolve
 
 screen countdown(cd_time):
     zorder 2
@@ -204,12 +208,6 @@ label main:
         Guide "You are taking sooo long"
         $ question()
         hide screen convoCountdown
-        
-transform alpha_dissolve:
-    alpha 0.0
-    linear 0.5 alpha 1.0
-    on hide:
-        linear 0.5 alpha 0
 
 label missedHat:
     show hatman
@@ -284,6 +282,105 @@ label guide:
 
     jump right
 
+label survey_intro:
+    hide screen convoCountdown
+    show SurveyMan behind blink
+
+    $ surveyFlag = True
+
+    sm "Hola."
+
+    jump survey_choice
+
+label survey_choice:
+
+    # Asking if the player wants to do a survey.
+    # Will continue to ask until the player says yes.
+    menu:
+
+        "Quieres hacer una survey?"
+
+        "Si":
+
+            jump survey_start
+
+        "No":
+            sm "Necesitas hacerlo."
+
+            jump survey_choice
+
+label survey_start:
+
+    # Asking the player if they are having fun.
+    menu:
+
+        "Tengo divertido?"
+
+        "Si":
+            
+            sm "Bueno."
+
+        "No":
+
+            sm "Interesante..."
+    
+    # Asking the player what their favorite exhibition is.
+    # Feel free to add all of the exhibits as options, I just don't know how many we're going to have yet.
+    menu:
+
+        "Que es tu exhibit favorito?"
+
+        "Cheese":
+
+            sm "Delicioso..."
+
+        "Teeth Garden":
+
+            sm "Muy Bien."
+
+    # Asking the player if they would come back to the exhibition
+    menu:
+
+        "Vanga un otra vez?"
+
+        "Si":
+
+            sm "Excelente."
+
+        "No":
+
+            sm "No bueno..."
+    
+    # Asking who the player's favorite character is.
+    # Feel free to add options for all relevant characters.
+    menu:
+
+        "Que es tu persona favorito?"
+
+        "Hat Man":
+
+            sm "Misterioso..."
+
+        "Tour Guide":
+
+            sm "No me gusta..."
+
+        "Tu":
+
+            sm "..."
+
+            sm "Gracias"
+
+    # Telling the player the survey is done and to enjoy the exhibition.
+
+    sm "El survey estas terminado."
+
+    sm "Gracias por tu opinion."
+
+    sm "Disfruta de The Exhibition."
+
+    jump right
+
 label themenu:
     "fade to black"
     scene black
@@ -327,6 +424,12 @@ transform sprial:
     linear 1 rotate 120
     linear 1 yalign 0.0 clockwise circles 1
     linear 1 rotate 0
+
+transform alpha_dissolve:
+    alpha 0.0
+    linear 0.5 alpha 1.0
+    on hide:
+        linear 0.5 alpha 0
 
 image blink:
     "blink1.png"
