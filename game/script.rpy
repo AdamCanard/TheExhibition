@@ -57,9 +57,13 @@ label start:
 
             jump cheese
 
-        "Survey time:":
+        "Survey time":
 
             jump survey_intro
+
+        "Win time":
+
+            jump win_intro
 
         "No":
             jump themenu
