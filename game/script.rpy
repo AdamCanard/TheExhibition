@@ -27,6 +27,7 @@ init:
     $ hatFlag = False
     $ surveyFlag = False
     $ dogFlag = False
+    $ auctionFlag = False
 
 init python:
     def question():
@@ -42,15 +43,15 @@ init python:
         if num == 1 and not hatFlag:
             renpy.jump("hat")
 
-        userinput = renpy.input("[hatFlag] [surveyFlag] [dogFlag]", length=16)
+        userinput = renpy.input("[hatFlag] [surveyFlag] [dogFlag] [auctionFlag]", length=16)
         userinput = userinput.strip()
 
-        if userinput == "guide":
-            renpy.call("guide")
-        elif userinput == "survey":
+        if userinput == "survey":
             renpy.jump("survey_intro")
         elif userinput == "dog":
             renpy.jump("dog")
+        elif userinput == "auction":
+            renpy.jump("auction")
         else:
             renpy.jump("wrong")
         
