@@ -26,13 +26,14 @@ init:
     $ loseFlag = False
     $ hatFlag = False
     $ surveyFlag = False
+    $ dogFlag = False
 
 init python:
     def question():
 
         if loseFlag == True:
             renpy.jump("themenu")
-        elif hatFlag and surveyFlag:
+        elif hatFlag and surveyFlag and dogFlag:
             renpy.jump("win")
         
 
@@ -41,13 +42,15 @@ init python:
         if num == 1 and not hatFlag:
             renpy.jump("hat")
 
-        userinput = renpy.input("Where do you want to go?", length=16)
+        userinput = renpy.input("[hatFlag] [surveyFlag] [dogFlag]", length=16)
         userinput = userinput.strip()
 
         if userinput == "guide":
             renpy.call("guide")
         elif userinput == "survey":
             renpy.jump("survey_intro")
+        elif userinput == "dog":
+            renpy.jump("dog")
         else:
             renpy.jump("wrong")
         
@@ -84,8 +87,6 @@ screen countdown(cd_time):
 
 label start:
 
-    jump main
-
     #every scene should show blink right under it
     scene bg bus
 
@@ -117,8 +118,8 @@ label start:
     
     play music "theme.mp3"
     show welcomeguy at sprial
-    $ renpy.pause (10.0, hard=True)
-    
+    $ renpy.pause (10.0)
+    #, hard=True
     WelcomeGuy "Pretty killer toon huh"
 
     jump main
@@ -149,11 +150,12 @@ label main:
     hide screen convoCountdown
 
     label wrong:
+        show blink 
         $ num = renpy.random.randint(1,2)
         if num == 1:
-            show guide mad at Gleft
+            show guide mad behind blink at Gleft
         else:
-            show guide mad at Gright
+            show guide mad behind blink at Gright
 
         $ background = randomizeBackground()
         $ renpy.show(background, behind=["guide"])
@@ -161,7 +163,7 @@ label main:
         $ timer_range = 5
         $ timer_jump = 'slow' 
         show screen convoCountdown
-        show blink 
+        
         
         Guide "WRONG"
         show guide happy
@@ -171,15 +173,17 @@ label main:
 
     label right:
 
+        show blink 
+
         $ num = renpy.random.randint(1,2)
         if num == 1:
-            show guide happy at Gleft
+            show guide happy behind blink at Gleft
         else:
-            show guide happy at Gright
+            show guide happy behind blink at Gright
 
         $ background = randomizeBackground()
         $ renpy.show(background, behind=["guide"])
-        show blink 
+        
         
         $ time = 5
         $ timer_range = 5
@@ -204,6 +208,8 @@ label main:
         $ background = randomizeBackground()
         $ renpy.show(background, behind=["guide"])
  
+        show blink
+
         show screen convoCountdown
         Guide "You are taking sooo long"
         $ question()
@@ -213,9 +219,11 @@ label missedHat:
     show hatman
     hatman "waste of my time"
     
-    jump right
+    hide hatman
+    jump slow
 
 label hat:
+    show blink
     hide screen convoCountdown
     "Unknown Voice" "Hey "
     extend "psst..."
@@ -224,7 +232,7 @@ label hat:
     "Unknown Voice but louder" "HEY! "
     extend "LOOK AT ME !"
 
-    show hatman at creepIn
+    show hatman behind blink at creepIn
     $ renpy.pause (2.0, hard=True)
     hatman "come here, check this out"
     label choose:
@@ -246,24 +254,28 @@ label hat:
                     hatman "this is my favourite snack... enjoy..."
 
                     "Receive a handful of worms from HatMan."
+                    hide hatman
                     jump right
 
                 elif (randSnack == 'juice'):
                     hatman "i juiced this myself…"
 
                     "Receive freshly squeezed ‘juice?’."
+                    hide hatman
                     jump right
 
                 elif (randSnack == 'lint'):
                     hatman "i found this in my pocket… good for the Gums…"
 
                     "Receive damp and weird smelling pocket lint."
+                    hide hatman
                     jump right
                     
             "uhhhh, no thanks":
                 hide screen convoCountdown
                 show hatman mad
                 hatman "“hrhhghhhhrhhhhrhhhghghhrhhhhhhghhehhrhghhhrhhghhhhhh”"
+                hide hatman
                 jump right
             "...":
                 hide screen convoCountdown
@@ -280,105 +292,6 @@ label guide:
 
     show cycle guide at Gright
     Guide "I am the guide, I will have dialog soon"
-
-    jump right
-
-label survey_intro:
-    hide screen convoCountdown
-    show SurveyMan behind blink
-
-    $ surveyFlag = True
-
-    sm "Hola."
-
-    jump survey_choice
-
-label survey_choice:
-
-    # Asking if the player wants to do a survey.
-    # Will continue to ask until the player says yes.
-    menu:
-
-        "Quieres hacer una survey?"
-
-        "Si":
-
-            jump survey_start
-
-        "No":
-            sm "Necesitas hacerlo."
-
-            jump survey_choice
-
-label survey_start:
-
-    # Asking the player if they are having fun.
-    menu:
-
-        "Tengo divertido?"
-
-        "Si":
-            
-            sm "Bueno."
-
-        "No":
-
-            sm "Interesante..."
-    
-    # Asking the player what their favorite exhibition is.
-    # Feel free to add all of the exhibits as options, I just don't know how many we're going to have yet.
-    menu:
-
-        "Que es tu exhibit favorito?"
-
-        "Cheese":
-
-            sm "Delicioso..."
-
-        "Teeth Garden":
-
-            sm "Muy Bien."
-
-    # Asking the player if they would come back to the exhibition
-    menu:
-
-        "Vanga un otra vez?"
-
-        "Si":
-
-            sm "Excelente."
-
-        "No":
-
-            sm "No bueno..."
-    
-    # Asking who the player's favorite character is.
-    # Feel free to add options for all relevant characters.
-    menu:
-
-        "Que es tu persona favorito?"
-
-        "Hat Man":
-
-            sm "Misterioso..."
-
-        "Tour Guide":
-
-            sm "No me gusta..."
-
-        "Tu":
-
-            sm "..."
-
-            sm "Gracias"
-
-    # Telling the player the survey is done and to enjoy the exhibition.
-
-    sm "El survey estas terminado."
-
-    sm "Gracias por tu opinion."
-
-    sm "Disfruta de The Exhibition."
 
     jump right
 
