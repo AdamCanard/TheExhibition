@@ -6,30 +6,75 @@ define hatman = Character("HatMan")
 image guide = "Guide Neutral.png"
 image guide happy = "Guide Happy.png"
 image guide mad = "Guide Mad.png"
+image guide sad = "Guide Sad.png"
+image main = "bg main.png"
+image main green = "bg main green.png"
+image main red = "bg main red.png"
+image main negative = "bg main negative.png"
+image main forest = "bg main forest.png"
+image main fish = "bg main fish.png"
 
 #On screen countdown for decision
-screen countdown:
-    timer 0.01 repeat True action If(time > 0, true=SetVariable('time', time - 0.01), false=[Hide('countdown'), Jump(timer_jump)])
-    bar value time range timer_range xalign 0.5 yalign 0.9 xmaximum 300 at alpha_dissolve
 
 #init for timer vars
 init:
     $ timer_range = 0
     $ timer_jump = 0
     $ time = 0
+    $ loseFlag = False
+    $ hatFlag = False
 
 init python:
     def question():
-        userinput = renpy.input("Where do you want to go?", length=16)
+
+        if loseFlag == True:
+            renpy.jump("themenu")
+        elif hatFlag:
+            renpy.jump("win")
+        
+
+        num = renpy.random.randint(1,10)
+
+        if num == 1 and not hatFlag:
+            renpy.jump("hat")
+
+        userinput = renpy.input("Where do you want to go? [loseFlag]", length=16)
         userinput = userinput.strip()
 
         if userinput == "guide":
             renpy.call("guide")
-        elif userinput == "hat":
-            renpy.call("hat")
+        elif userinput == "menu":
+            renpy.jump("themenu")
         else:
             renpy.jump("wrong")
         
+    def randomizeBackground():
+        return (renpy.random.choice(["main", "main green", "main red", "main forest", "main fish", "main negative"]))
+
+    def countdown(st, at, length=0.0):
+
+        remaining = length - st
+        minutes = (int) (length - st) / 60
+        seconds = (int) (length - st) % 60
+
+        if remaining > 0.0:
+            return Text("%02d:" % minutes + "%02d" % seconds, color="#f00", size=200), .1
+        else:
+            global loseFlag
+            loseFlag = True
+            return Text("%02d:" % minutes + "%02d" % seconds, color="#000", size=200), .1
+
+screen convoCountdown:
+    timer 0.01 repeat True action If(time > 0, true=SetVariable('time', time - 0.01), false=[Hide('convoCountdown'), Jump(timer_jump)])
+
+screen countdown(cd_time):
+    zorder 2
+    frame:
+        #xalign 1.0
+        xpos 500
+        yalign 0.1
+        background None
+        add DynamicDisplayable(countdown, length=cd_time)
 
 # The game starts here.
 
@@ -62,7 +107,7 @@ label start:
 
     WelcomeGuy "Unfortunately, the Exhibition closes in 5 minutes :("
 
-    #DISPLAY 5:00 Timer
+    show screen countdown(300)
 
     WelcomeGuy "But enough with the sappy stuff, Lets get that music going!"
     
@@ -79,6 +124,8 @@ label main:
     show blink 
     show guide happy behind blink at Gright
 
+    $ loseFlag = False
+
     Guide "Hi, i am so happy to see you"
 
     show guide -happy at Gleft
@@ -90,38 +137,74 @@ label main:
     show guide happy at Gright
     extend "Where do you want to go?"
         
+    $ time = 5
+    $ timer_range = 5
+    $ timer_jump = 'slow' 
+    show screen convoCountdown
     $ question()
+    hide screen convoCountdown
 
     label wrong:
-        show guide mad
+        $ num = renpy.random.randint(1,2)
+        if num == 1:
+            show guide mad at Gleft
+        else:
+            show guide mad at Gright
+
+        $ background = randomizeBackground()
+        $ renpy.show(background, behind=["guide"])
+        $ time = 5
+        $ timer_range = 5
+        $ timer_jump = 'slow' 
+        show screen convoCountdown
+        show blink 
+        
         Guide "WRONG"
         show guide happy
         $ question()
+        hide screen convoCountdown
 
 
     label right:
-        scene bg main
+
+        $ num = renpy.random.randint(1,2)
+        if num == 1:
+            show guide happy at Gleft
+        else:
+            show guide happy at Gright
+
+        $ background = randomizeBackground()
+        $ renpy.show(background, behind=["guide"])
         show blink 
-        show guide happy behind blink at Gleft
-        Guide "That was a great time!"
-        Guide "Where to next?"
-        $ question()
         
+        $ time = 5
+        $ timer_range = 5
+        $ timer_jump = 'slow' 
+        show screen convoCountdown
+        Guide "That was a great time!"
+        $ question()
+        hide screen convoCountdown
 
-    menu:
+    label slow:
+        
+        $ time = 5
+        $ timer_range = 5
+        $ timer_jump = 'slow' 
 
-        "Where would you like to visit"
+        $ num = renpy.random.randint(1,2)
+        if num == 1:
+            show guide sad at Gleft
+        else:
+            show guide sad at Gright
 
-        "Guide":
-
-            jump guide
-
-        "Hat Man":
-            jump hat
-
-        "End me":
-            jump themenu
-
+        $ background = randomizeBackground()
+        $ renpy.show(background, behind=["guide"])
+ 
+        show screen convoCountdown
+        Guide "You are taking sooo long"
+        $ question()
+        hide screen convoCountdown
+        
 transform alpha_dissolve:
     alpha 0.0
     linear 0.5 alpha 1.0
@@ -131,10 +214,10 @@ transform alpha_dissolve:
 label missedHat:
     show hatman
     hatman "waste of my time"
+    
     jump right
 
 label hat:
-
     "Unknown Voice" "Hey "
     extend "psst..."
     extend " over here"
@@ -149,12 +232,13 @@ label hat:
         $ time = 2
         $ timer_range = 2
         $ timer_jump = 'missedHat' 
-        show screen countdown
+        show screen convoCountdown
         menu:
             "Limited Time Response"
 
             "sure i guess":
-                hide screen countdown
+                $ hatFlag = True
+                hide screen convoCountdown
                 show hatman happy
                 hatman "eeheehee hee…"
                 $ randSnack = renpy.random.choice(['worms', 'juice', 'lint'])
@@ -178,25 +262,24 @@ label hat:
                     jump right
                     
             "uhhhh, no thanks":
-                hide screen countdown
+                hide screen convoCountdown
                 show hatman mad
                 hatman "“hrhhghhhhrhhhhrhhhghghhrhhhhhhghhehhrhghhhrhhghhhhhh”"
                 jump right
             "...":
-                hide screen countdown
+                hide screen convoCountdown
                 hatman "heyheyheyheyhey come onnnn…. "
                 extend "psssst… just take a peek… pleaaaaaaaasesseaseeee…"
                 jump choose
 
 
 label guide:
-
+    hide screen convoCountdown
     scene bg cheese:
         xalign 0.5
         yalign 0.5
 
     show cycle guide at Gright
-
     Guide "I am the guide, I will have dialog soon"
 
     jump right
@@ -211,7 +294,11 @@ label themenu:
 
     show gameoverguy
     GameOverGuy "Game Over"
-    return
+    $ renpy.full_restart()
+
+label win:
+    "you win"
+    $ renpy.full_restart()
 
 transform creepIn:
     xalign -2.0
