@@ -216,6 +216,7 @@ label missedHat:
     jump right
 
 label hat:
+    hide screen convoCountdown
     "Unknown Voice" "Hey "
     extend "psst..."
     extend " over here"
