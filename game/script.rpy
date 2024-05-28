@@ -23,6 +23,7 @@ init:
     $ timer_range = 0
     $ timer_jump = 0
     $ time = 0
+    $ guessCount = 0
     $ loseFlag = False
     $ hatFlag = False
     $ surveyFlag = False
@@ -32,10 +33,13 @@ init:
 init python:
     def question():
 
+        global guessCount
+        guessCount = guessCount + 1
+
         if loseFlag == True:
             renpy.jump("themenu")
         elif hatFlag and surveyFlag and dogFlag:
-            renpy.jump("win")
+            renpy.jump("win_intro")
         
 
         num = renpy.random.randint(1,10)
@@ -43,7 +47,7 @@ init python:
         if num == 1 and not hatFlag:
             renpy.jump("hat")
 
-        userinput = renpy.input("[hatFlag] [surveyFlag] [dogFlag] [auctionFlag]", length=16)
+        userinput = renpy.input("[guessCount] [hatFlag] [surveyFlag] [dogFlag] [auctionFlag]", length=16)
         userinput = userinput.strip()
 
         if userinput == "survey":
@@ -143,8 +147,8 @@ label main:
     show guide happy at Gright
     extend "Where do you want to go?"
         
-    $ time = 5
-    $ timer_range = 5
+    $ time = 3
+    $ timer_range = 3
     $ timer_jump = 'slow' 
     show screen convoCountdown
     $ question()
@@ -160,14 +164,20 @@ label main:
 
         $ background = randomizeBackground()
         $ renpy.show(background, behind=["guide"])
-        $ time = 5
-        $ timer_range = 5
+        $ time = 3
+        $ timer_range = 3
         $ timer_jump = 'slow' 
-        show screen convoCountdown
         
         
-        Guide "WRONG"
+        if guessCount >= 5:
+            $ guessCount = 0
+            $ hint = renpy.random.choice(['That was a {b}dog{/b}shit guess', "Don't forget to complete the {b}survey{/b} before you leave", 'Are you here for the {b}auction{/b}? It sounds like its just wrapping up now'])
+            Guide "[hint]"
+        else:
+            Guide "WRONG"
         show guide happy
+
+        show screen convoCountdown
         $ question()
         hide screen convoCountdown
 
@@ -186,8 +196,8 @@ label main:
         $ renpy.show(background, behind=["guide"])
         
         
-        $ time = 5
-        $ timer_range = 5
+        $ time = 3
+        $ timer_range = 3
         $ timer_jump = 'slow' 
         show screen convoCountdown
         Guide "That was a great time!"
@@ -196,8 +206,8 @@ label main:
 
     label slow:
         
-        $ time = 5
-        $ timer_range = 5
+        $ time = 3
+        $ timer_range = 3
         $ timer_jump = 'slow' 
 
         $ num = renpy.random.randint(1,2)
@@ -308,9 +318,6 @@ label themenu:
     GameOverGuy "Game Over"
     $ renpy.full_restart()
 
-label win:
-    "you win"
-    $ renpy.full_restart()
 
 transform creepIn:
     xalign -2.0

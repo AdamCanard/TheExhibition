@@ -59,4 +59,4 @@ label win_bus:
 
     "Come again!"
 
-    return
+    $ renpy.full_restart()
