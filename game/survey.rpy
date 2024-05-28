@@ -61,7 +61,7 @@ label survey_start:
     # Asking the player if they would come back to the exhibition
     menu:
 
-        "Vanga un otra vez?"
+        "Venga un otra vez?"
 
         "Si":
 
