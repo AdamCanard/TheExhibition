@@ -29,6 +29,7 @@ init:
     $ surveyFlag = False
     $ dogFlag = False
     $ auctionFlag = False
+    $ cheeseFlag = False
 
 init python:
     def question():
@@ -47,7 +48,7 @@ init python:
         if num == 1 and not hatFlag:
             renpy.jump("hat")
 
-        userinput = renpy.input("[guessCount] [hatFlag] [surveyFlag] [dogFlag] [auctionFlag]", length=16)
+        userinput = renpy.input("[cheeseFlag] [guessCount] [hatFlag] [surveyFlag] [dogFlag] [auctionFlag]", length=16)
         userinput = userinput.strip()
 
         if userinput == "survey":
@@ -56,6 +57,8 @@ init python:
             renpy.jump("dog")
         elif userinput == "auction":
             renpy.jump("auction")
+        elif userinput == "cheese":
+            renpy.jump("cheese")
         else:
             renpy.jump("wrong")
         
@@ -171,10 +174,11 @@ label main:
         
         if guessCount >= 5:
             $ guessCount = 0
-            $ hint = renpy.random.choice(['That was a {b}dog{/b}shit guess', "Don't forget to complete the {b}survey{/b} before you leave", 'Are you here for the {b}auction{/b}? It sounds like its just wrapping up now'])
+            $ hint = renpy.random.choice(["{b}cheese{/b}",'That was a {b}dog{/b}shit guess', "Don't forget to complete the {b}survey{/b} before you leave", 'Are you here for the {b}auction{/b}? It sounds like its just wrapping up now'])
             Guide "[hint]"
         else:
             Guide "WRONG"
+
         show guide happy
 
         show screen convoCountdown
@@ -222,7 +226,28 @@ label main:
         show blink
 
         show screen convoCountdown
-        Guide "You are taking sooo long"
+        $ response = renpy.random.choice(["Woaoaooaowaooaooaowaooaoaa","SORRY I CAN’T HEAR YAH","wELL would you look at THAT","You remind me of my dead {b}dog{/b}","I taste somethin funny in the air","Have you tried?",""])
+        if(response == ""):
+            Guide "Hey"
+            extend "."
+            extend "."
+            extend "."
+            extend "."
+            extend "."
+            extend "."
+            extend "."
+            extend "."
+            extend "."
+            extend "."
+            extend "."
+            extend "."
+            extend "."
+            extend "."
+            extend "."
+            extend "."
+            extend "."
+        else:
+            Guide "[response]"
         $ question()
         hide screen convoCountdown
 
@@ -295,15 +320,19 @@ label hat:
                 jump choose
 
 
-label guide:
+label cheese:
     hide screen convoCountdown
+    $ cheeseFlag = True
     scene bg cheese:
         xalign 0.5
         yalign 0.5
 
     show cycle guide at Gright
-    Guide "I am the guide, I will have dialog soon"
-
+    Guide "This beautiful piece was made by the famed Andrew Klein."
+    Guide "Apparently he made the cheese himself ;) with SPECIAL milk…"
+    Guide "I’m not sure if it’s the cheese… or that… thing… that’s the love of his life."
+    Guide "Your guess is as good as mine HAHAHAHAHAHA!"
+    Guide "HAHAHAHAHAHAHAHAHAHAHAHAHAHAHAHAHAHA!"
     jump right
 
 label themenu:
