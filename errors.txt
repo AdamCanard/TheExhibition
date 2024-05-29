@@ -2,9 +2,35 @@
 errors listed below, and try again.
 
 
-File "game/script.rpy", line 154: 'show' is not a keyword argument or valid child of the screen statement.
-    show hatman
-        ^
+File "game/survey.rpy", line 11: Line with id survey_intro_a9ad43ec appears twice. The other line is game/script.rpy:293
+
+File "game/survey.rpy", line 28: Line with id survey_choice_eba0d875 appears twice. The other line is game/script.rpy:310
+
+File "game/survey.rpy", line 41: Line with id survey_start_921a0906 appears twice. The other line is game/script.rpy:323
+
+File "game/survey.rpy", line 45: Line with id survey_start_e7d503ff appears twice. The other line is game/script.rpy:327
+
+File "game/survey.rpy", line 55: Line with id survey_start_1c3ac6b9 appears twice. The other line is game/script.rpy:337
+
+File "game/survey.rpy", line 59: Line with id survey_start_2381263d appears twice. The other line is game/script.rpy:341
+
+File "game/survey.rpy", line 68: Line with id survey_start_b0def1e0 appears twice. The other line is game/script.rpy:350
+
+File "game/survey.rpy", line 72: Line with id survey_start_dbfbe902 appears twice. The other line is game/script.rpy:354
+
+File "game/survey.rpy", line 82: Line with id survey_start_fe3fe5a5 appears twice. The other line is game/script.rpy:364
+
+File "game/survey.rpy", line 86: Line with id survey_start_3a6fa408 appears twice. The other line is game/script.rpy:368
+
+File "game/survey.rpy", line 90: Line with id survey_start_942ec06d appears twice. The other line is game/script.rpy:372
+
+File "game/survey.rpy", line 92: Line with id survey_start_6bf4b7db appears twice. The other line is game/script.rpy:374
+
+File "game/survey.rpy", line 96: Line with id survey_start_a0fc79c0 appears twice. The other line is game/script.rpy:378
+
+File "game/survey.rpy", line 98: Line with id survey_start_9b4e266a appears twice. The other line is game/script.rpy:380
+
+File "game/survey.rpy", line 100: Line with id survey_start_ae07b707 appears twice. The other line is game/script.rpy:382
 
 Ren'Py Version: Ren'Py 8.2.1.24030407
-Mon May 20 20:03:15 2024
+Mon May 27 13:16:15 2024

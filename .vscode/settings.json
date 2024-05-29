@@ -26,10 +26,7 @@
         }
       },
       {
-        "scope": [
-          "renpy.meta.u",
-          "renpy.meta.a"
-        ],
+        "scope": ["renpy.meta.u", "renpy.meta.a"],
         "settings": {
           "fontStyle": "underline"
         }
@@ -129,6 +126,18 @@
         "settings": {
           "foreground": "#cfc"
         }
+      },
+      {
+        "scope": "renpy.meta.color.#ffffff",
+        "settings": {
+          "foreground": "#ffffff"
+        }
+      },
+      {
+        "scope": "renpy.meta.color.#ff0000",
+        "settings": {
+          "foreground": "#ff0000"
+        }
       }
     ]
   },
@@ -171,10 +180,7 @@
   "C_Cpp_Runner.compilerArgs": [],
   "C_Cpp_Runner.linkerArgs": [],
   "C_Cpp_Runner.includePaths": [],
-  "C_Cpp_Runner.includeSearch": [
-    "*",
-    "**/*"
-  ],
+  "C_Cpp_Runner.includeSearch": ["*", "**/*"],
   "C_Cpp_Runner.excludeSearch": [
     "**/build",
     "**/build/**",
