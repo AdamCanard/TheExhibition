@@ -4,7 +4,7 @@
 # Survey Man is being used as a placeholder, feel free to replace him once the tour guide is created.
 
 label win_intro:
-
+    hide screen convoCountdown
     show SurveyMan
 
     sm "Congrats."

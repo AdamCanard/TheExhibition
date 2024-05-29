@@ -74,9 +74,9 @@ label auction:
 
 label snooze:
     hide screen convoCountdown
-    auctioneer "GOING ONCE. GOING TWICE... "
+    Auctioneer "GOING ONCE. GOING TWICE... "
     extend "GOING THRICE!!!"
 
-    auctioneer "SOOOOLD TO NOT YOU"
+    Auctioneer "SOOOOLD TO NOT YOU"
     hide auctioneer
     jump right
