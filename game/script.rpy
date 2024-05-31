@@ -48,7 +48,7 @@ init python:
         if num == 1 and not hatFlag:
             renpy.jump("hat")
 
-        userinput = renpy.input("[cheeseFlag] [guessCount] [hatFlag] [surveyFlag] [dogFlag] [auctionFlag]", length=16)
+        userinput = renpy.input("Where do you want to go?", length=16)
         userinput = userinput.strip()
 
         if userinput == "survey":
