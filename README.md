@@ -1,3 +1,5 @@
+Licensed under Creative Commons: https://creativecommons.org/licenses/by-nc-sa/4.0/
+
 <h2>Running The Game (Build)</h2>
 
 Download Ren'Py<br />
