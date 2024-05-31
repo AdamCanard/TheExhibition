@@ -1,0 +1,1 @@
+define build.itch_project = "AdamCanard/the-exhibition"

@@ -120,7 +120,7 @@ label start:
 
     WelcomeGuy "Unfortunately, the Exhibition closes in 5 minutes :("
 
-    show screen countdown(300)
+    # show screen countdown(300)
 
     WelcomeGuy "But enough with the sappy stuff, Lets get that music going!"
     
@@ -153,7 +153,7 @@ label main:
     $ time = 3
     $ timer_range = 3
     $ timer_jump = 'slow' 
-    show screen convoCountdown
+    # show screen convoCountdown
     $ question()
     hide screen convoCountdown
 
@@ -181,7 +181,7 @@ label main:
 
         show guide happy
 
-        show screen convoCountdown
+        # show screen convoCountdown
         $ question()
         hide screen convoCountdown
 
@@ -203,7 +203,7 @@ label main:
         $ time = 3
         $ timer_range = 3
         $ timer_jump = 'slow' 
-        show screen convoCountdown
+        # show screen convoCountdown
         Guide "That was a great time!"
         $ question()
         hide screen convoCountdown
@@ -225,7 +225,7 @@ label main:
  
         show blink
 
-        show screen convoCountdown
+        # show screen convoCountdown
         $ response = renpy.random.choice(["Woaoaooaowaooaooaowaooaoaa","SORRY I CAN’T HEAR YAH","wELL would you look at THAT","You remind me of my dead {b}dog{/b}","I taste somethin funny in the air","Have you tried?",""])
         if(response == ""):
             Guide "Hey"
@@ -275,7 +275,7 @@ label hat:
         $ time = 2
         $ timer_range = 2
         $ timer_jump = 'missedHat' 
-        show screen convoCountdown
+        # show screen convoCountdown
         menu:
             "Limited Time Response"
 
