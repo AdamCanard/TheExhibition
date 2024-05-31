@@ -33,13 +33,12 @@ init:
 
 init python:
     def question():
-
         global guessCount
         guessCount = guessCount + 1
 
         if loseFlag == True:
             renpy.jump("themenu")
-        elif hatFlag and surveyFlag and dogFlag:
+        elif hatFlag and surveyFlag and dogFlag and cheeseFlag and auctionFlag:
             renpy.jump("win_intro")
         
 
@@ -79,7 +78,7 @@ init python:
             return Text("%02d:" % minutes + "%02d" % seconds, color="#000", size=200), .1
 
 screen convoCountdown:
-    timer 0.01 repeat True action If(time > 0, true=SetVariable('time', time - 0.01), false=[Hide('convoCountdown'), Jump(timer_jump)])
+    timer 1.5 repeat True action If(time > 0, true=SetVariable('time', time - 1), false=[Hide('convoCountdown'), Jump(timer_jump)])
     bar value time range timer_range xalign 0.5 yalign 0.9 xmaximum 300 at alpha_dissolve
 
 screen countdown(cd_time):
@@ -120,7 +119,7 @@ label start:
 
     WelcomeGuy "Unfortunately, the Exhibition closes in 5 minutes :("
 
-    # show screen countdown(300)
+    show screen countdown(300)
 
     WelcomeGuy "But enough with the sappy stuff, Lets get that music going!"
     
@@ -153,7 +152,7 @@ label main:
     $ time = 3
     $ timer_range = 3
     $ timer_jump = 'slow' 
-    # show screen convoCountdown
+    show screen convoCountdown
     $ question()
     hide screen convoCountdown
 
@@ -181,7 +180,7 @@ label main:
 
         show guide happy
 
-        # show screen convoCountdown
+        show screen convoCountdown
         $ question()
         hide screen convoCountdown
 
@@ -203,7 +202,7 @@ label main:
         $ time = 3
         $ timer_range = 3
         $ timer_jump = 'slow' 
-        # show screen convoCountdown
+        show screen convoCountdown
         Guide "That was a great time!"
         $ question()
         hide screen convoCountdown
@@ -225,7 +224,7 @@ label main:
  
         show blink
 
-        # show screen convoCountdown
+        show screen convoCountdown
         $ response = renpy.random.choice(["Woaoaooaowaooaooaowaooaoaa","SORRY I CAN’T HEAR YAH","wELL would you look at THAT","You remind me of my dead {b}dog{/b}","I taste somethin funny in the air","Have you tried?",""])
         if(response == ""):
             Guide "Hey"
@@ -275,7 +274,7 @@ label hat:
         $ time = 2
         $ timer_range = 2
         $ timer_jump = 'missedHat' 
-        # show screen convoCountdown
+        show screen convoCountdown
         menu:
             "Limited Time Response"
 
